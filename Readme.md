@@ -6,7 +6,7 @@ Por isso, criei este repositório para armazenar meus trabalhos, projetos e exer
 
 #### @ ano, X bimestre:
 
-@ -> ano em que desenvolvi os programas.<\br>
+@ -> ano em que desenvolvi os programas.</br>
 X -> bimestre em que eu desenvolvi os programas.
 
 ### <linguagem de programação>:
