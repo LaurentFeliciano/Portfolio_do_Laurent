@@ -1,4 +1,4 @@
-# Olá! Seja bem-vindo ao meu portfólio!
+# Olá! Seja bem-vindo ao meu portfólio!👦🏻👋🏻
 Meu nome é Laurent Feliciano e atualmente estou fazendo médio técnico.
 Por isso, criei este repositório para armazenar meus trabalhos, projetos e exercícios!
 
@@ -6,12 +6,12 @@ Por isso, criei este repositório para armazenar meus trabalhos, projetos e exer
 
 #### @ ano, X bimestre:
 
-@ -> ano em que desenvolvi os programas.</br>
-X -> bimestre em que eu desenvolvi os programas.</br>
+@ -> ano em que desenvolvi os programas.
+X -> bimestre em que eu desenvolvi os programas.
 
-### <linguagem de programação>:</br>
+### <linguagem de programação>:
 
-Meus programas feitos na linguagem especificada POR FORA do curso técnico, ou seja, praticando sozinho.</br>
+Meus programas feitos na linguagem especificada POR FORA do curso técnico, ou seja, praticando sozinho.
 
-### TCC:</br>
+### TCC:
 Meu TCC Realizado durante o período do curso, até o final do 3° ano.
