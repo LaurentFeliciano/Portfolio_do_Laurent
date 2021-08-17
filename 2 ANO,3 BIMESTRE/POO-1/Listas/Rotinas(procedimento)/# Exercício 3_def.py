@@ -4,6 +4,7 @@
 # Renato Minoru Nishikawa
 # Alberson Wander de Sá
 # 2°F - Informática
+# 3) Fazer um programa com uma rotina que verifique se um número passado como parâmetro é ou não primo. 
 def e_primo_ou_nao(parametro):
     total_de_divisões=0
     for contador in range (1,parametro+1):

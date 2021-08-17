@@ -4,6 +4,10 @@
 # Renato Minoru Nishikawa
 # Alberson Wander de Sá
 # 2°F - Informática
+# 2) Refaça o programa 1, de tal forma que o usuário possa passar o número decimal digitado como parâmetro para rotina.
+# Depois de passar este número como parâmetro e imprimir o resultado da conversão para binário, chame a rotina
+# novamente no módulo principal do programa, porém desta vez, passando como parâmetro o número 59. Com isso, o
+# programa dever exibir também o resultado desta conversão.
 def conversão_para_binario(parametro):
     resultado=''
     while True:

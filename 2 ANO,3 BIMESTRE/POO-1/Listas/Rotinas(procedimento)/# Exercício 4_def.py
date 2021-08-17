@@ -4,6 +4,10 @@
 # Renato Minoru Nishikawa
 # Alberson Wander de Sá
 # 2°F - Informática
+# 4) Fazer um programa em python que calcule a área total de uma casa. Para isso, o programa deve possuir uma rotina
+# que receba como parâmetro USANDO RECURSO DE EMPACOTAMENTO os nomes de cada cômodo e as suas medidas dos
+# comprimentos e larguras. Dentro da rotina, desempacote a tupla recebida e faça o cálculo mostrando o nome e a área
+# de cada cômodo, bem como a soma de todas as áreas calculadas e exiba o resultado da área total do imóvel.
 def calculo_da_area(*parametro_usando_empacotamento):
     soma_largura=soma_comprimento=soma_areas=0
     area = parametro_usando_empacotamento[1] * parametro_usando_empacotamento[2]

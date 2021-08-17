@@ -4,9 +4,18 @@
 # Renato Minoru Nishikawa
 # Alberson Wander de Sá
 # 2°F - Informática
-frase= 'minha mãe é doida gente socorro'
-print(f'{frase.upper()}')
-print(f'{frase.lower()}')
-print(f'{len(frase)}')
-x=frase.split()
+# 1) Fazer um programa em python para:
+# a. Mostrar todas as letras de uma frase em letras maiúsculas
+# b. Todas as letras da frase em letras minúsculas
+# c. Informar quantas letras tem na frase
+# d. quantas letras tem na primeira palavra da frase
+Frase= 'minha mãe é doida gente socorro'
+# a. Mostrar todas as letras de uma frase em letras maiúsculas:
+print(f'{Frase.upper()}')
+# b. Todas as letras da frase em letras minúsculas:
+print(f'{Frase.lower()}')
+# c. Informar quantas letras tem na frase:
+print(f'{len(Frase)}')
+# d. quantas letras tem na primeira palavra da frase:
+x=Frase.split()
 print(f'{len(x[0])+1}')

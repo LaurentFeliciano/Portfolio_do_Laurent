@@ -4,8 +4,7 @@
 # Renato Minoru Nishikawa
 # Alberson Wander de Sá
 # 2°F - Informática
-nome=input('Digite seu nome:')
-if 'Silva' in nome:
-    print('True')
-else:
-    print('False')
+# 4) Fazer um programa python para verificar se no nome de uma pessoa existe “Silva”. Mostre somente true ou false:
+Nome=input('Digite seu nome:')
+if 'Silva' in Nome: print('True')
+else:   print('False')

@@ -4,6 +4,8 @@
 # Renato Minoru Nishikawa
 # Alberson Wander de Sá
 # 2°F - Informática
-nome =input('Digite um nome completo')
-nome_cortado= nome.split()
-print(f'Primeiro nome:{nome_cortado[0]}\nSegundo nome:{nome_cortado[-1]}')
+# 6) Fazer um programa em python para mostrar o primeiro e o último nome de pessoa digitado pelo usuário,
+# independente da quantidade de palavras do nome digitado. 
+Nome=input('Digite um nome completo')
+NomeCortado= Nome.split()
+print(f'Primeiro nome:{NomeCortado[0]}\nSegundo nome:{NomeCortado[-1]}')

@@ -4,6 +4,9 @@
 # Renato Minoru Nishikawa
 # Alberson Wander de Sá
 # 2°F - Informática
+# 1) Fazer um programa para solicitar ao usuário a digitação de 5 números e armazená-los numa lista. Após armazená-los
+# mostre o Maior e o Menor valores e os seus índices na lista. Caso tenha valores iguais e estes forem o maior e/ou menor
+# números, mostre todas as posições destes na lista criada. 
 lista=list()
 for contador in range(0,5): 
     lista[contador]=int(input('Digite um número:'))

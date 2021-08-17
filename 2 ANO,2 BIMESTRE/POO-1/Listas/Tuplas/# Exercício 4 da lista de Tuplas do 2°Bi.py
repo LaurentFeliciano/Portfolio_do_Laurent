@@ -9,10 +9,12 @@
 # b. Em que posição tem o número 3. Pode ser que não apareça, cuide disso!
 # c. Quais são os pares armazenados na tupla 
 numeros=(int(input('Digite um numero:')),int(input('Digite um numero:')),int(input('Digite um numero:')),int(input('Digite um numero:')),int(input('Digite um numero:')))
-
+# a. Quantas vezes aparece o número 10:
 print(f'Quantas vezes apareceram o numero 10:{numeros.count(10)}')
+# b. Em que posição tem o número 3. Pode ser que não apareça, cuide disso!
 if 3 in numeros:    print(f'Em que posição tem o número 3:{numeros.index(3)+1}° posição')
 else:   print('O número 3 não foi digitado')
+# c. Quais são os pares armazenados na tupla 
 print(f'Quais são os pares armazenados na tupla:',end='')
 for pares in numeros:   
     if pares%2==0: print(pares,end=',')

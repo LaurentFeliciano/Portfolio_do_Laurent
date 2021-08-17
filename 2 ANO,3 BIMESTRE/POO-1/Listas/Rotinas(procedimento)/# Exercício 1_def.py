@@ -4,6 +4,10 @@
 # Renato Minoru Nishikawa
 # Alberson Wander de Sá
 # 2°F - Informática
+# 1) Fazer um programa em python para que o usuário digite um número decimal inteiro qualquer e armazene tal número
+# em uma variável global qualquer. Em seguida, chame uma rotina SEM PASSAGEM DE PARÂMETRO, para convertê-lo este
+# número em binário. A a conversão de decimal para binário deve usar estrutura de repetição que você quiser. Dentro da
+# rotina imprima o resultado da conversão.
 def conversão_para_binario():
     resultado=''
     global variavel_global_qualquer

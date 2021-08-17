@@ -9,10 +9,13 @@
 # b. Os 4 últimos da colocados
 # c. A listagem dos times em ordem alfabética
 # d. Em que posição está um time informado pelo usuário
- 
-classificacao=('time A','time C','time B','time D','time E','time F','time G','time H','time I','time J')
-print(f'{classificacao[0:5]}')
-print(f'{classificacao[-1:-5:-1]}')
-print(f'{sorted(classificacao)}')
-time=input('Digite o nome de um time:')
-print(f'posição:{classificacao.index(time)+1}')
+Classificacao=('time A','time C','time B','time D','time E','time F','time G','time H','time I','time J')
+# a. Os 5 primeiros colocados:
+print(f'{Classificacao[0:5]}')
+# b. Os 4 últimos da colocados:
+print(f'{Classificacao[-1:-5:-1]}')
+# c. A listagem dos times em ordem alfabética:
+print(f'{sorted(Classificacao)}')
+# d. Em que posição está um time informado pelo usuário:
+Time=input('Digite o nome de um time:')
+print(f'Posição:{Classificacao.index(Time)+1}')

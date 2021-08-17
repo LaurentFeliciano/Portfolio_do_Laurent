@@ -4,5 +4,7 @@
 # Renato Minoru Nishikawa
 # Alberson Wander de Sá
 # 2°F - Informática
-numero= input('Digite um numero entre 0 e 9999:')
-print(f'O número possui {numero[0]} milhares,{numero[1]} centenas,{numero[2]} dezenas,{numero[3]} unidades.')
+# 2) Fazer um programa para solicitar ao usuário digitar um número entre 0 e 9999. Em seguida, mostre quantos
+# milhares, centenas, dezenas e unidades tem o número digitado:
+N= input('Digite um numero entre 0 e 9999:')
+print(f'O número possui {N[0]} milhares,{N[1]} centenas,{N[2]} dezenas,{N[3]} unidades.')

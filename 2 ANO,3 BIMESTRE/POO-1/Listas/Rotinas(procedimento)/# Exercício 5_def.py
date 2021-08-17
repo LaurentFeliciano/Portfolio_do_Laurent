@@ -4,6 +4,10 @@
 # Renato Minoru Nishikawa
 # Alberson Wander de Sá
 # 2°F - Informática
+# 5) Fazer um programa em python que contenha uma rotina para verificar qual o maior e menor números contidos numa
+# lista. O usuário deve digitar vários números e armazená-los na referida lista que será passada como parâmetro. Imprima
+# qual número maior e o menor e qual a posição destes números dentro da referida lista. ATENÇÃO, NÃO PERMITA A
+# DIGITAÇÃO DE NÚMEROS IGUAIS DENTRO DA LISTA.
 lista=list()
 def maior_menor(numeros):
     print(numeros)
