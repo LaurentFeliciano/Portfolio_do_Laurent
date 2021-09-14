@@ -1,0 +1,18 @@
+D:\Portfolio do Laurent\2 ANO,3 BIMESTRE\POO-2\Projetos\Projeto 3 Bimestre\Projeto 3 Bimestre\obj\Debug\net5.0-windows\Projeto 3 Bimestre.csproj.AssemblyReference.cache
+D:\Portfolio do Laurent\2 ANO,3 BIMESTRE\POO-2\Projetos\Projeto 3 Bimestre\Projeto 3 Bimestre\obj\Debug\net5.0-windows\Projeto_3_Bimestre.Form1.resources
+D:\Portfolio do Laurent\2 ANO,3 BIMESTRE\POO-2\Projetos\Projeto 3 Bimestre\Projeto 3 Bimestre\obj\Debug\net5.0-windows\Projeto 3 Bimestre.csproj.GenerateResource.cache
+D:\Portfolio do Laurent\2 ANO,3 BIMESTRE\POO-2\Projetos\Projeto 3 Bimestre\Projeto 3 Bimestre\obj\Debug\net5.0-windows\Projeto 3 Bimestre.GeneratedMSBuildEditorConfig.editorconfig
+D:\Portfolio do Laurent\2 ANO,3 BIMESTRE\POO-2\Projetos\Projeto 3 Bimestre\Projeto 3 Bimestre\obj\Debug\net5.0-windows\Projeto 3 Bimestre.AssemblyInfoInputs.cache
+D:\Portfolio do Laurent\2 ANO,3 BIMESTRE\POO-2\Projetos\Projeto 3 Bimestre\Projeto 3 Bimestre\obj\Debug\net5.0-windows\Projeto 3 Bimestre.AssemblyInfo.cs
+D:\Portfolio do Laurent\2 ANO,3 BIMESTRE\POO-2\Projetos\Projeto 3 Bimestre\Projeto 3 Bimestre\obj\Debug\net5.0-windows\Projeto 3 Bimestre.csproj.CoreCompileInputs.cache
+D:\Portfolio do Laurent\2 ANO,3 BIMESTRE\POO-2\Projetos\Projeto 3 Bimestre\Projeto 3 Bimestre\bin\Debug\net5.0-windows\Projeto 3 Bimestre.exe
+D:\Portfolio do Laurent\2 ANO,3 BIMESTRE\POO-2\Projetos\Projeto 3 Bimestre\Projeto 3 Bimestre\bin\Debug\net5.0-windows\Projeto 3 Bimestre.deps.json
+D:\Portfolio do Laurent\2 ANO,3 BIMESTRE\POO-2\Projetos\Projeto 3 Bimestre\Projeto 3 Bimestre\bin\Debug\net5.0-windows\Projeto 3 Bimestre.runtimeconfig.json
+D:\Portfolio do Laurent\2 ANO,3 BIMESTRE\POO-2\Projetos\Projeto 3 Bimestre\Projeto 3 Bimestre\bin\Debug\net5.0-windows\Projeto 3 Bimestre.runtimeconfig.dev.json
+D:\Portfolio do Laurent\2 ANO,3 BIMESTRE\POO-2\Projetos\Projeto 3 Bimestre\Projeto 3 Bimestre\bin\Debug\net5.0-windows\Projeto 3 Bimestre.dll
+D:\Portfolio do Laurent\2 ANO,3 BIMESTRE\POO-2\Projetos\Projeto 3 Bimestre\Projeto 3 Bimestre\bin\Debug\net5.0-windows\ref\Projeto 3 Bimestre.dll
+D:\Portfolio do Laurent\2 ANO,3 BIMESTRE\POO-2\Projetos\Projeto 3 Bimestre\Projeto 3 Bimestre\bin\Debug\net5.0-windows\Projeto 3 Bimestre.pdb
+D:\Portfolio do Laurent\2 ANO,3 BIMESTRE\POO-2\Projetos\Projeto 3 Bimestre\Projeto 3 Bimestre\obj\Debug\net5.0-windows\Projeto 3 Bimestre.dll
+D:\Portfolio do Laurent\2 ANO,3 BIMESTRE\POO-2\Projetos\Projeto 3 Bimestre\Projeto 3 Bimestre\obj\Debug\net5.0-windows\ref\Projeto 3 Bimestre.dll
+D:\Portfolio do Laurent\2 ANO,3 BIMESTRE\POO-2\Projetos\Projeto 3 Bimestre\Projeto 3 Bimestre\obj\Debug\net5.0-windows\Projeto 3 Bimestre.pdb
+D:\Portfolio do Laurent\2 ANO,3 BIMESTRE\POO-2\Projetos\Projeto 3 Bimestre\Projeto 3 Bimestre\obj\Debug\net5.0-windows\Projeto 3 Bimestre.genruntimeconfig.cache

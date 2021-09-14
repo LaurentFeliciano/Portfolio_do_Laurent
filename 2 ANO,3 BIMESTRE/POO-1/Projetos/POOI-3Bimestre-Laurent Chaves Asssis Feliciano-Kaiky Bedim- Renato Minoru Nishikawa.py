@@ -30,3 +30,37 @@
 
 # Observação final:
 # - Caso o usuário tente excluir algum professor, ou disciplina, que estejam relacionados na tabela disciplinasxprofessores este NÃO PODERÁ SER EXCLUÍDO. AVISE AO USUÁRIO. ESTE PROCESSO PODE SER TRATADO COM TRY, ou então através de consulta. 
+import disciplinasxprofessores
+import disciplinas
+import professores
+
+print('-'*80)
+
+print('\033[1;35mPrograma de Manipulação de um Banco de Dados utilizando Python e MySQL\033[m\n')
+
+while True:
+    try:
+        print('''\033[0;32m
+        Tabelas Possíveis de serem acessadas:
+
+        [1]-Disciplinas
+        [2]-Professores
+        [3]-Disciplinasxprofessores
+        [4]-Nenhuma
+        \033[m
+        ''')
+        Resposta = int(input('\033[34mDeseja acessar qual tabela?Caso não queira acessar nenhuma, digite 4:\033[m'))
+
+        while Resposta !=1 and Resposta !=2 and Resposta !=3 and Resposta !=4: Resposta = int(input('Resposta inválida, digite novamente:'))
+
+    except Exception as Erro:   print(f'\033[0;31mOcorreu um erro: {Erro}\033[m]')
+
+    if Resposta == 1:   disciplinas.abrir_disciplinas()
+
+    if Resposta == 2:   professores.abrir_professores()
+
+    if Resposta == 3:   disciplinasxprofessores.abrir_disciplinasxprofessores()
+
+    if Resposta == 4: break
+
+print('\033[1;35mObrigado por utilizar nosso programa!\033[m\n\033[0;33mCriadores:\nLaurent Chaves Assis Feliciano\nKaiky Augusto Bedim\nRenato Minoru Nishikawa\033[m\n\033[0;35m2°F- Informática\033[m')

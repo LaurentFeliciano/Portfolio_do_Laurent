@@ -23,256 +23,260 @@
 # Renato Minoru Nishikawa
 # Alberson Wander de Sá
 # 2°F - Informática
-from prettytable import PrettyTable
+def abrir_professores():
+    from prettytable import PrettyTable
 
-import mysql.connector
+    import mysql.connector
 
-def abrir_banco():
+    def abrir_banco():
 
-    try:
+        try:
 
-        global BancoDeDados
+            global BancoDeDados
 
-        BancoDeDados = mysql.connector.Connect(host='localhost',database='univap',user='root', password='')
+            BancoDeDados = mysql.connector.Connect(host='localhost',database='univap',user='root', password='')
 
-        if BancoDeDados.is_connected():
+            if BancoDeDados.is_connected():
 
-            InformacaoBanco = BancoDeDados.get_server_info()
+                InformacaoBanco = BancoDeDados.get_server_info()
 
-            print(f'Conectado ao servidor banco de dados - Versão {InformacaoBanco}')
+                print(f'Conectado ao servidor banco de dados - Versão {InformacaoBanco}')
 
-            print('Conexão estabelecida')
+                print('Conexão estabelecida')
 
-            global Comandosql
+                global Comandosql
 
-            Comandosql = BancoDeDados.cursor()
+                Comandosql = BancoDeDados.cursor()
 
-            Comandosql.execute('select database();')
+                Comandosql.execute('select database();')
 
-            NomeBanco = Comandosql.fetchone()
+                NomeBanco = Comandosql.fetchone()
 
-            print(f'Banco de dados "{NomeBanco}" acessado.')
+                print(f'Banco de dados "{NomeBanco}" acessado.')
 
-            print('-'*80)
+                print('-'*80)
 
-            return 1
+                return 1
 
-        else:
+            else:
 
-            print(f'Conexão não realizada com banco {NomeBanco}.')
+                print(f'Conexão não realizada com banco {NomeBanco}.')
+
+                return 0
+
+        except Exception as Erro:
+
+            print(f'\033[0;31mOcorreu um erro : {Erro}\033[m')
 
             return 0
 
-    except Exception as Erro:
+    def mostrar_professores():
 
-        print(f'Ocorreu um erro : {Erro}')
+        Grid = PrettyTable(['Registro','Nome','Telefone','Idade','Salário'])
 
-        return 0
+        try:
+            Comandosql = BancoDeDados.cursor()
 
-def mostrar_professores():
+            Comandosql.execute(f'select * from professores;')
 
-    Grid = PrettyTable(['Registro','Nome','Telefone','Idade','Salário'])
+            Tabela = Comandosql.fetchall()
 
-    try:
-        Comandosql = BancoDeDados.cursor()
+            if Comandosql.rowcount > 0:
 
-        Comandosql.execute(f'select * from professores;')
+                for Registro in Tabela: Grid.add_row([Registro[0],Registro[1],Registro[2],Registro[3],Registro[4]])
 
-        Tabela = Comandosql.fetchall()
+                print(Grid)
 
-        if Comandosql.rowcount > 0:
+            else:   print('Não existem professores cadastrados no banco de dados da escola.')
 
-            for Registro in Tabela: Grid.add_row([Registro[0],Registro[1],Registro[2],Registro[3],Registro[4]])
+        except Exception as Erro:   print(f'\033[0;31mOcorreu um erro: {Erro}\033[m')
 
-            print(Grid)
+    def consultar_professor(rp=0):
 
-        else:   print('Não existem professores cadastrados no banco de dados da escola.')
+        try:
 
-    except Exception as Erro:   print(f'Ocorreu um erro: {Erro}')
+            Comandosql = BancoDeDados.cursor()
 
-def consultar_professor(rp=0):
+            Comandosql.execute(f'select * from professores where registro = {rp};')
 
-    try:
+            Tabela = Comandosql.fetchall()
 
-        Comandosql = BancoDeDados.cursor()
+            if Comandosql.rowcount > 0:
 
-        Comandosql.execute(f'select * from professores where registro = {rp};')
+                for Registro in Tabela:
 
-        Tabela = Comandosql.fetchall()
+                    print(f'Nome do professor: {Registro[1]}, Telefone do professor:{Registro[2]}, Idade do professor:{Registro[3]}, Salário do professor:{Registro[4]}')
 
-        if Comandosql.rowcount > 0:
+                    return 'Contém'
+            
+            else:   return 'Não Contém'
 
-            for Registro in Tabela:
+        except Exception as Erro:   return (f'\033[0;31mOcorreu um erro ao tentar consultar esta disciplina: {Erro}\033[m')
 
-                print(f'Nome do professor: {Registro[1]}, Telefone do professor:{Registro[2]}, Idade do professor:{Registro[3]}, Salário do professor:{Registro[4]}')
+    def cadastrar_professor(rp=0,np='',tp='',ip=0,sp=0):
 
-                return 'Contém'
-        
-        else:   return 'Não Contém'
+        try:
 
-    except Exception as Erro:   return (f'Ocorreu um erro ao tentar consultar esta disciplina: {Erro}')
+            Comandosql = BancoDeDados.cursor()
 
-def cadastrar_professor(rp=0,np='',tp='',ip=0,sp=0):
-
-    try:
-
-        Comandosql = BancoDeDados.cursor()
-
-        Comandosql.execute(f'insert into professores(registro,nomeprof,telefoneprof,idadeprof,salarioprof)values({rp},"{np}","{tp}",{ip},{sp}) ;')
-
-        BancoDeDados.commit()
-
-        return 'Cadastro do professor realizado com sucesso.'
-
-    except Exception as Erro :
-
-        print(f'Ocorreu um erro: {Erro}')
-
-        return 'Não foi possível cadastrar o professor.'
-
-def alterar_professor(rp=0,np='',tp='',ip=0,sp=0):
-
-    try:
-
-        Comandosql = BancoDeDados.cursor()
-
-        Comandosql.execute(f'Update professores SET nomeprof="{np}",telefoneprof="{tp}",idadeprof={ip},salarioprof={sp} where registro = {rp};')
-
-        BancoDeDados.commit()
-
-        return 'Professor alterado com sucesso.'
-
-    except Exception as Erro :
-
-        print(f'Ocorreu um erro: {Erro}')
-
-        return 'Não foi possível alterar este professor'
-
-def excluir_professor(rp=0):
-
-    try:
-        Comandosql = BancoDeDados.cursor()
-
-        Comandosql.execute(f'select * from disciplinasxprofessores where codprofessor={rp};')
-
-        if Comandosql.rowcount==0:
-
-            Comandosql.execute(f'delete from disciplinas where codigodisc = {rp};')
+            Comandosql.execute(f'insert into professores(registro,nomeprof,telefoneprof,idadeprof,salarioprof)values({rp},"{np}","{tp}",{ip},{sp}) ;')
 
             BancoDeDados.commit()
 
-            return 'Professor excluído com sucesso.'
+            return 'Cadastro do professor realizado com sucesso.'
+
+        except Exception as Erro :
+
+            print(f'\033[0;31mOcorreu um erro: {Erro}\033[m')
+
+            return 'Não foi possível cadastrar o professor.'
+
+    def alterar_professor(rp=0,np='',tp='',ip=0,sp=0):
+
+        try:
+
+            Comandosql = BancoDeDados.cursor()
+
+            Comandosql.execute(f'Update professores SET nomeprof="{np}",telefoneprof="{tp}",idadeprof={ip},salarioprof={sp} where registro = {rp};')
+
+            BancoDeDados.commit()
+
+            return 'Professor alterado com sucesso.'
+
+        except Exception as Erro :
+
+            print(f'\033[0;31mOcorreu um erro: {Erro}\033[m')
+
+            return 'Não foi possível alterar este professor'
+
+    def excluir_professor(rp=0):
+
+        try:
+            Comandosql = BancoDeDados.cursor()
+
+            Comandosql.execute(f'select * from disciplinasxprofessores where codprofessor={rp};')
+
+            Comandosql.fetchall()
             
-        else:   print('Não é Possível excluir a Disciplina pois ela está atribuida à algum professor')
+            if Comandosql.rowcount==0:
 
-        return 'Professor excluído com sucesso.'
+                Comandosql.execute(f'delete from professores where codprofessor = {rp};')
 
-    except Exception as Erro :
+                BancoDeDados.commit()
 
-        print(f'Ocorreu um erro: {Erro}')
+                return 'Professor excluído com sucesso.'
+                
+            else:   print('Não é Possível excluir a Disciplina pois ela está atribuida à algum professor')
 
-        return 'Não foi possível excluir este professor.'
-'''
-========================================= MÓDULO PRINCIPAL DO PROGRAMA ===============================================
-'''
-if abrir_banco() == 1:
+            return 'Professor excluído com sucesso.'
 
-    Resposta = input('Deseja entrar no módulo de Professores?"sim" para entrar e qualquer coisa para sair:')
+        except Exception as Erro :
 
-    while Resposta =='sim':
+            print(f'\033[0;31mOcorreu um erro: {Erro}\033[m')
 
-        print('-'*80)
+            return 'Não foi possível excluir este professor.'
+    '''
+    ========================================= MÓDULO PRINCIPAL DO PROGRAMA ===============================================
+    '''
 
-        print('{:^80}'.format('Banco de Dados UNIVAP - Professores'))
+    if abrir_banco() == 1:
 
-        print('-'*80)
+        Resposta = input('Deseja entrar no módulo de Professores?"sim" para entrar e qualquer coisa para sair:')
 
-        while True:
+        while Resposta =='sim':
 
-            Registro = input('Registro do professores (0- Mostra Todas):')
+            print('-'*80)
 
-            if Registro.isnumeric():
+            print('{:^80}'.format('Banco de Dados UNIVAP - Professores'))
 
-                Registro = int(Registro)
+            print('-'*80)
 
-                break
+            while True:
 
-        if Registro == 0:
+                Registro = input('Registro do professores (0- Mostra Todas):')
 
-            mostrar_professores()
+                if Registro.isnumeric():
 
-            continue
+                    Registro = int(Registro)
 
-        if consultar_professor(Registro) == 'Não Contém':
-            try:
-                NomeProfessor = input('Nome do professor:')
+                    break
 
-                TelefoneProfessor = input('Telefone do professor(formato:(##)#####-####):')
+            if Registro == 0:
 
-                while len(TelefoneProfessor) != 14:
+                mostrar_professores()
 
-                    TelefoneProfessor = input('Digite um Telefone do professor válido(formato:(##)#####-####):')
+                continue
 
-                IdadeProfessor = int(input('Idade de professor:'))
-
-                while IdadeProfessor>=300 and IdadeProfessor<=0:
-
-                    IdadeProfessor = int(input('Digite uma Idade do Professor válida:'))
-
-                SalarioProfessor = float(input('Salário de professor(Somente Dígitos):'))
-
-                print(cadastrar_professor(Registro,NomeProfessor,TelefoneProfessor,IdadeProfessor,SalarioProfessor))
-
-            except Exception as Erro:   print(f'Ocorreu um erro:{Erro}')
-        else:
-
-            Opcoes = input("Escolha: [A]-Alterar [E]-Excluir [C]-Cancelar Operações -> ")
-
-            while Opcoes!='A' and Opcoes!='E' and Opcoes!='C':  Opcoes = input("Escolha entre A , E ou C: [A]-Alterar [E]-Excluir [C]-Cancelar Operações -> ")
-
-            if Opcoes=='A':
-
+            if consultar_professor(Registro) == 'Não Contém':
                 try:
-                    NomeProfessor = input('Nome do novo professor:')
+                    NomeProfessor = input('Nome do professor:')
 
-                    TelefoneProfessor = input('Telefone do novo professor(formato:(##)#####-####):')
+                    TelefoneProfessor = input('Telefone do professor(formato:(##)#####-#### ):')
 
                     while len(TelefoneProfessor) != 14:
 
-                        TelefoneProfessor = input('Digite um Telefone do novo professor (formato:(##)#####-####):')
+                        TelefoneProfessor = input('Digite um Telefone do professor válido(formato:(##)#####-#### ):')
 
-                    IdadeProfessor = int(input('Idade do novo professor:'))
+                    IdadeProfessor = int(input('Idade de professor:'))
 
-                    while IdadeProfessor>=300 and IdadeProfessor<=0:
+                    while IdadeProfessor>=150 and IdadeProfessor<=13:
 
-                        IdadeProfessor = int(input('Digite uma Idade de Professor válida:'))
+                        IdadeProfessor = int(input('Digite uma Idade do Professor válida:'))
 
                     SalarioProfessor = float(input('Salário de professor(Somente Dígitos):'))
 
-                    print(alterar_professor(Registro,NomeProfessor,TelefoneProfessor,IdadeProfessor,SalarioProfessor))
+                    print(cadastrar_professor(Registro,NomeProfessor,TelefoneProfessor,IdadeProfessor,SalarioProfessor))
 
-                except Exception as Erro:   print(f'Ocorreu um erro: {Erro}')
+                except Exception as Erro:   print(f'\033[0;31mOcorreu um erro:{Erro}\033[m')
+            else:
 
-            elif Opcoes == 'E':
+                Opcoes = input("Escolha: [A]-Alterar [E]-Excluir [C]-Cancelar Operações -> ")
 
-                Confirmar = input('Confirme a exclusão do professor: SIM caso tenha certeza ou NAO caso deseje cancelar:')
+                while Opcoes!='A' and Opcoes!='E' and Opcoes!='C':  Opcoes = input("Escolha entre A , E ou C: [A]-Alterar [E]-Excluir [C]-Cancelar Operações -> ")
 
-                while Confirmar != 'SIM' and Confirmar != 'NAO':    Confirmar = input('Digite novamente caso queira excluir o professor: SIM caso tenha certeza ou NAO caso deseje cancelar:')
+                if Opcoes=='A':
 
-                print(excluir_professor(Registro))
+                    try:
+                        NomeProfessor = input('Nome do novo professor:')
 
-        print('\n\n')
+                        TelefoneProfessor = input('Telefone do novo professor(formato:(##)#####-#### ):')
 
-        print('-'*80)
+                        while len(TelefoneProfessor) != 14:
 
-        if input('Deseja continuar utilizando o programa?"sim" para continuar e qualquer tecla para sair ->') == 'sim': continue
+                            TelefoneProfessor = input('Digite um Telefone do novo professor (formato:(##)#####-#### ):')
 
-        else:
+                        IdadeProfessor = int(input('Idade do novo professor:'))
 
-            break
+                        while IdadeProfessor>=150 and IdadeProfessor<=13:
 
-            Comandosql.close()
-        
-            BancoDeDados.close()
+                            IdadeProfessor = int(input('Digite uma Idade de Professor válida:'))
 
-else:   print('Programa encerrado, Há algum problema na conexão com banco de dados.')
+                        SalarioProfessor = float(input('Salário de professor(Somente Dígitos):'))
+
+                        print(alterar_professor(Registro,NomeProfessor,TelefoneProfessor,IdadeProfessor,SalarioProfessor))
+
+                    except Exception as Erro:   print(f'\033[0;31mOcorreu um erro: {Erro}\033[m')
+
+                elif Opcoes == 'E':
+
+                    Confirmar = input('Confirme a exclusão do professor: SIM caso tenha certeza ou NAO caso deseje cancelar:')
+
+                    while Confirmar != 'SIM' and Confirmar != 'NAO':    Confirmar = input('Digite novamente caso queira excluir o professor: SIM caso tenha certeza ou NAO caso deseje cancelar:')
+
+                    print(excluir_professor(Registro))
+
+            print('\n\n')
+
+            print('-'*80)
+
+            if input('Deseja continuar utilizando o programa?"sim" para continuar e qualquer tecla para sair ->') == 'sim': continue
+
+            else:
+
+                break
+
+                Comandosql.close()
+            
+                BancoDeDados.close()
+
+    else:   print('Programa encerrado, Há algum problema na conexão com banco de dados.')

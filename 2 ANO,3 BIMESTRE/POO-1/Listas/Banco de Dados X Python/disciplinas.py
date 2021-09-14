@@ -4,229 +4,230 @@
 # Renato Minoru Nishikawa
 # Alberson Wander de Sá
 # 2°F - Informática
-from prettytable import PrettyTable
+def abrir_disciplinas():
+    from prettytable import PrettyTable
 
-import mysql.connector
+    import mysql.connector
 
-def abrir_banco():
+    def abrir_banco():
 
-    try:
+        try:
 
-        global BancoDeDados
+            global BancoDeDados
 
-        BancoDeDados = mysql.connector.Connect(host='localhost',database='univap',user='root', password='')
+            BancoDeDados = mysql.connector.Connect(host='localhost',database='univap',user='root', password='')
 
-        if BancoDeDados.is_connected():
+            if BancoDeDados.is_connected():
 
-            InformacaoBanco = BancoDeDados.get_server_info()
+                InformacaoBanco = BancoDeDados.get_server_info()
 
-            print(f'Conectado ao servidor banco de dados - Versão {InformacaoBanco}')
+                print(f'Conectado ao servidor banco de dados - Versão {InformacaoBanco}')
 
-            print('Conexão estabelecida')
+                print('Conexão estabelecida')
 
-            global Comandosql
+                global Comandosql
 
-            Comandosql = BancoDeDados.cursor()
+                Comandosql = BancoDeDados.cursor()
 
-            Comandosql.execute('select database();')
+                Comandosql.execute('select database();')
 
-            NomeBanco = Comandosql.fetchone()
+                NomeBanco = Comandosql.fetchone()
 
-            print(f'Banco de dados acessado = {NomeBanco}')
+                print(f'Banco de dados acessado = {NomeBanco}')
 
-            print('='*80)
+                print('='*80)
 
-            return 1
+                return 1
 
-        else:
+            else:
 
-            print(f'Conexão não realizada com banco {NomeBanco}.')
+                print(f'Conexão não realizada com banco {NomeBanco}.')
+
+                return 0
+
+        except Exception as Erro:
+
+            print(f'Ocorreu um erro : {Erro}')
 
             return 0
 
-    except Exception as Erro:
+    def mostrar_disciplinas():
 
-        print(f'Ocorreu um erro : {Erro}')
+        Grid = PrettyTable(['Códigos das Disciplinas', "Nomes de Disciplinas"])
 
-        return 0
+        try:
+            Comandosql = BancoDeDados.cursor()
 
-def mostrar_disciplinas():
+            Comandosql.execute(f'select * from disciplinas;')
 
-    Grid = PrettyTable(['Códigos das Disciplinas', "Nomes de Disciplinas"])
+            Tabela = Comandosql.fetchall()
 
-    try:
-        Comandosql = BancoDeDados.cursor()
+            if Comandosql.rowcount > 0:
 
-        Comandosql.execute(f'select * from disciplinas;')
+                for Registro in Tabela: Grid.add_row([Registro[0],Registro[1]])
 
-        Tabela = Comandosql.fetchall()
+                print(Grid)
 
-        if Comandosql.rowcount > 0:
+            else:   print('Não existem disciplinas cadastrados no banco de dados da escola.')
 
-            for Registro in Tabela: Grid.add_row([Registro[0],Registro[1]])
+        except Exception as Erro:   print(f'Ocorreu um erro: {Erro}')
 
-            print(Grid)
+    def consultardisciplina(cd=0):
 
-        else:   print('Não existem disciplinas cadastrados no banco de dados da escola.')
+        try:
 
-    except Exception as Erro:   print(f'Ocorreu um erro: {Erro}')
+            Comandosql = BancoDeDados.cursor()
 
-def consultardisciplina(cd=0):
+            Comandosql.execute(f'select * from disciplinas where codigodisc = {cd};')
 
-    try:
+            Tabela = Comandosql.fetchall()
 
-        Comandosql = BancoDeDados.cursor()
+            if Comandosql.rowcount > 0:
 
-        Comandosql.execute(f'select * from disciplinas where codigodisc = {cd};')
+                for Registro in Tabela:
 
-        Tabela = Comandosql.fetchall()
+                    print(f'Nome da Disciplina: {Registro[1]}')
 
-        if Comandosql.rowcount > 0:
+                    return 'Contém'
 
-            for Registro in Tabela:
+            else:   return 'Não Contém'
 
-                print(f'Nome da Disciplina: {Registro[1]}')
+        except Exception as Erro:   return (f'Ocorreu erro ao tentar consultar esta disciplina: Erro -> {Erro}')
 
-                return 'Contém'
+    def cadastrardisciplina(cd=0,nd=''):
 
-        else:   return 'Não Contém'
+        try:
 
-    except Exception as Erro:   return (f'Ocorreu erro ao tentar consultar esta disciplina: Erro -> {Erro}')
+            Comandosql = BancoDeDados.cursor()
 
-def cadastrardisciplina(cd=0,nd=''):
-
-    try:
-
-        Comandosql = BancoDeDados.cursor()
-
-        Comandosql.execute(f'insert into disciplinas(codigodisc, nomedisc)values({cd},"{nd}") ;')
-
-        BancoDeDados.commit()
-
-        return 'Cadastro da disciplina realizado com sucesso.'
-
-    except Exception as Erro:
-
-        print(f'Ocorreu um erro: {Erro}')
-
-        return 'Não foi possível cadastrar esta disciplina.'
-
-def alterardisciplina(cd=0, nomedisciplina=''):
-
-    try:
-
-        Comandosql = BancoDeDados.cursor()
-
-        #criando comando update para atulizar o nome da disciplina em questão
-
-        Comandosql.execute(f'Update disciplinas SET nomedisc="{nomedisciplina}" where codigodisc = {cd};')
-
-        #método commit é responsável por REGRAVAR de fato o novo NOME DA DISCIPLINA disciplina na tabela
-
-        BancoDeDados.commit()
-
-        return 'Disciplina alterada com sucesso.'
-
-    except Exception as Erro :
-
-        print(f'Ocorreu um erro: {Erro}')
-
-        return 'Não foi possível alterada esta disciplina'
-
-def excluirdisciplina(cd=0):
-
-    try:
-
-        Comandosql = BancoDeDados.cursor()
-
-        Comandosql.execute(f'select * from disciplinasxprofessores where coddisciplina={cd};')
-
-        if Comandosql.rowcount==0:
-
-            Comandosql.execute(f'delete from disciplinas where codigodisc = {cd};')
+            Comandosql.execute(f'insert into disciplinas(codigodisc, nomedisc)values({cd},"{nd}") ;')
 
             BancoDeDados.commit()
 
-            return 'Disciplina excluída com sucesso.'
+            return 'Cadastro da disciplina realizado com sucesso.'
 
-        else:   print('Não é Possível excluir a Disciplina pois ela está atribuida à algum professor')
-    except Exception as Erro:
+        except Exception as Erro:
 
-        print(f'Ocorreu um erro: {Erro}')
+            print(f'Ocorreu um erro: {Erro}')
 
-        return 'Não foi possível excluir esta disciplina.'
-'''
-========================================= MÓDULO PRINCIPAL DO PROGRAMA===============================================
-'''
-if abrir_banco() == 1:
+            return 'Não foi possível cadastrar esta disciplina.'
 
-    Resposta = input('Deseja entrar no módulo de Disciplinas?"sim" para entrar e qualquer coisa para sair:')
+    def alterardisciplina(cd=0, nomedisciplina=''):
 
-    while Resposta =='sim':
+        try:
 
-        print('='*80)
+            Comandosql = BancoDeDados.cursor()
 
-        print('{:^80}'.format('Banco de Dados UNIVAP - Disciplinas'))
+            #criando comando update para atulizar o nome da disciplina em questão
 
-        print('='*80)
+            Comandosql.execute(f'Update disciplinas SET nomedisc="{nomedisciplina}" where codigodisc = {cd};')
 
-        while True:
+            #método commit é responsável por REGRAVAR de fato o novo NOME DA DISCIPLINA disciplina na tabela
 
-            try:
-                CodigoDisc = input('Código da Disciplina (0- Mostra Todas):')
+            BancoDeDados.commit()
 
-                if CodigoDisc.isnumeric():
+            return 'Disciplina alterada com sucesso.'
 
-                    CodigoDisc = int(CodigoDisc)
+        except Exception as Erro :
 
-                    break
+            print(f'Ocorreu um erro: {Erro}')
 
-            except Exception as Erro:   print(f'Ocorreu um erro: {Erro}')
+            return 'Não foi possível alterada esta disciplina'
 
-        if CodigoDisc == 0:
+    def excluirdisciplina(cd=0):
 
-            mostrar_disciplinas()
+        try:
 
-            continue
+            Comandosql = BancoDeDados.cursor()
 
-        if consultardisciplina(CodigoDisc) == 'Não Contém':
+            Comandosql.execute(f'select * from disciplinasxprofessores where coddisciplina={cd};')
 
-            NomeDisciplina = input('Nome da Disciplina:')
-            
-            print(cadastrardisciplina(CodigoDisc,NomeDisciplina))
+            if Comandosql.rowcount==0:
 
-        else:
+                Comandosql.execute(f'delete from disciplinas where codigodisc = {cd};')
 
-            Opcoes = input("Escolha: [A]-Alterar [E]-Excluir [C]-Cancelar Operações ==>")
+                BancoDeDados.commit()
 
-            while Opcoes!='A' and Opcoes !='E' and Opcoes !='C':    Opcoes = input("Escolha Entre: [A]-Alterar [E]-Excluir [C]-Cancelar Operações ->")
+                return 'Disciplina excluída com sucesso.'
 
-            if Opcoes=='A':
+            else:   print('Não é Possível excluir a Disciplina pois ela está atribuida à algum professor')
+        except Exception as Erro:
 
-                print('Atenção: Código da disciplina não pode ser alterado:')
+            print(f'Ocorreu um erro: {Erro}')
 
-                NomeDisciplina = input('Informe novo nome da disciplina:')
+            return 'Não foi possível excluir esta disciplina.'
+    '''
+    ========================================= MÓDULO PRINCIPAL DO PROGRAMA===============================================
+    '''
+    if abrir_banco() == 1:
 
-                print(alterardisciplina(CodigoDisc, NomeDisciplina))
+        Resposta = input('Deseja entrar no módulo de Disciplinas?"sim" para entrar e qualquer coisa para sair:')
+
+        while Resposta =='sim':
+
+            print('='*80)
+
+            print('{:^80}'.format('Banco de Dados UNIVAP - Disciplinas'))
+
+            print('='*80)
+
+            while True:
+
+                try:
+                    CodigoDisc = input('Código da Disciplina (0- Mostra Todas):')
+
+                    if CodigoDisc.isnumeric():
+
+                        CodigoDisc = int(CodigoDisc)
+
+                        break
+
+                except Exception as Erro:   print(f'Ocorreu um erro: {Erro}')
+
+            if CodigoDisc == 0:
+
+                mostrar_disciplinas()
+
+                continue
+
+            if consultardisciplina(CodigoDisc) == 'Não Contém':
+
+                NomeDisciplina = input('Nome da Disciplina:')
                 
-            elif Opcoes == 'E':
+                print(cadastrardisciplina(CodigoDisc,NomeDisciplina))
 
-                Confirmar = input('Confirme a exclusão do professor: SIM caso tenha certeza ou NAO caso deseje cancelar:')
+            else:
 
-                while Confirmar != 'S' and Confirmar != 'N':    Confirmar = input('Digite novamente caso queira excluir o professor: SIM caso tenha certeza ou NAO caso deseje cancelar:')
+                Opcoes = input("Escolha: [A]-Alterar [E]-Excluir [C]-Cancelar Operações ==>")
 
-                print([excluirdisciplina(CodigoDisc)])
+                while Opcoes!='A' and Opcoes !='E' and Opcoes !='C':    Opcoes = input("Escolha Entre: [A]-Alterar [E]-Excluir [C]-Cancelar Operações ->")
 
-        print('\n\n')
+                if Opcoes=='A':
 
-        print('='*80)
+                    print('Atenção: Código da disciplina não pode ser alterado:')
 
-        if input('Deseja continuar utilizando o programa?"sim" para continuar e qualquer tecla para sair ->') == 'sim':    continue
-        else:
-            break
+                    NomeDisciplina = input('Informe novo nome da disciplina:')
 
-            Comandosql.close()
-        
-            BancoDeDados.close()
+                    print(alterardisciplina(CodigoDisc, NomeDisciplina))
+                    
+                elif Opcoes == 'E':
 
-else:   print('Programa encerrado, Há algum problema na conexão com banco de dados.')
+                    Confirmar = input('Confirme a exclusão do professor: SIM caso tenha certeza ou NAO caso deseje cancelar:')
+
+                    while Confirmar != 'S' and Confirmar != 'N':    Confirmar = input('Digite novamente caso queira excluir o professor: SIM caso tenha certeza ou NAO caso deseje cancelar:')
+
+                    print([excluirdisciplina(CodigoDisc)])
+
+            print('\n\n')
+
+            print('='*80)
+
+            if input('Deseja continuar utilizando o programa?"sim" para continuar e qualquer tecla para sair ->') == 'sim':    continue
+            else:
+                break
+
+                Comandosql.close()
+            
+                BancoDeDados.close()
+
+    else:   print('Programa encerrado, Há algum problema na conexão com banco de dados.')
